@@ -31,7 +31,7 @@ CREATE TABLE `admin_table`  (
 -- ----------------------------
 -- Records of admin_table
 -- ----------------------------
-INSERT INTO `admin_table` VALUES ('admin', 'admin', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `admin_table` VALUES ('admin', 'admin', '21232f297a57a5a743894a0e4a801fc3');
 
 -- ----------------------------
 -- Table structure for check_table
