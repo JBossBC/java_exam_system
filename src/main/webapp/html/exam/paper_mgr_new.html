@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="在线考试系统,网络考试系统,企业考试系统,在线考试平台,手机考试,移动考试">
+    <meta name="description" content="是一款免费,好用在线考试系统,可以用手机考试,支持多种客户端">
+    <meta name="author" content="">
+
+    <script type="text/javascript">
+        var opts = {};
+
+        opts.userId = '7387836';
+        opts.companyId = '140092';
+        opts.companyName = '东北大学软件园';
+        opts.rightsGrade = '8';
+
+    </script>
+    <title>考试云平台</title>
+
+    <link rel="shortcut icon" href="../../img/logo.ico">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/admin_base.css">
+    <link rel="stylesheet" type="text/css" href="../../css/ksx-base.css">
+    <link rel="stylesheet" type="text/css" href="../../css/styles.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.bootgrid.css">
+    <link rel="stylesheet" type="text/css" href="../../css/pikaday.css">
+    <style>
+        .col-sm-12.actionBar {
+            display: none;
+        }
+
+        /*th.text-left:last-child {
+            text-align: center;
+        }*/
+        .viewFrameWork-body .body-wrapper .body-content {
+            padding-right: 15px;
+        }
+
+        div#grid-data-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            padding-top: 11px;
+            background: #fff;
+            margin-bottom: 0;
+        }
+
+        table#grid-data {
+            padding-bottom: 60px;
+        }
+
+        #grid-data-footer .row .infoBar .actions .btn-group:last-child .dropdown-menu {
+            top: -235px;
+        }
+
+        #createPaperForm {
+            padding: 0 40px;
+        }
+
+        #createPaperForm .form-row {
+            position: relative;
+            line-height: 28px;
+            padding-left: 90px;
+        }
+
+        #createPaperForm .form-row .tip {
+            position: absolute;
+            right: -10px;
+            top: 3px;
+            font-size: 16px;
+            color: #FF0000;
+            line-height: 1;
+        }
+
+        #createPaperForm .form-row + .form-row {
+            margin-top: 15px;
+        }
+
+        #createPaperForm .form-row .row-label {
+            position: absolute;
+            left: 10px;
+            top: 0;
+        }
+
+        #createPaperForm .form-row .btn + .btn {
+            margin-left: 7px;
+        }
+
+        #createPaperForm .form-row label {
+            font-weight: normal;
+        }
+
+        #createPaperForm .form-row .btn i {
+            margin-left: 5px;
+        }
+
+        #createPaperForm .form-row .btn.not-selected {
+            border: 1px solid #DEDEDE;
+            color: #B4B6BD;
+        }
+
+        #createPaperModal .modal-header {
+            padding-top: 30px;
+            padding-bottom: 18px;
+        }
+
+        #createPaperForm .btn-default {
+            line-height: 1.4;
+        }
+
+        #createPaperForm .form-control {
+            height: 28px;
+        }
+
+        #createPaperForm .form-row input[type=checkbox] {
+            margin-right: 3px;
+        }
+
+        .del-test .modal-dialog,
+        .del-test .modal-content,
+        .exam-not-del .modal-dialog,
+        .exam-not-del .modal-content {
+            width: 440px;
+            border: none;
+        }
+
+        .exam-del .close,
+        .del-test .close,
+        .exam-not-del .close {
+            display: none;
+        }
+
+        .del-test .bootstrap-dialog-message {
+            font-size: 20px;
+            color: #3A3E51;
+        }
+
+        .exam-del .del-test-no,
+        .exam-del .del-test-yes,
+        .del-test .del-test-no,
+        .del-test .del-test-yes {
+            height: 34px;
+            width: 100px;
+            font-size: 14px;
+        }
+
+        .exam-del .del-test-yes,
+        .del-test .del-test-yes {
+            background: #FF0000;
+            border-radius: 4px;
+            color: #FFFFFF;
+            margin-left: 14px !important;
+        }
+
+        .exam-del .del-test-no,
+        .del-test .del-test-no {
+            background: #F2F2F2;
+            border-radius: 4px;
+            color: #666666;
+        }
+
+        .del-test .modal-footer {
+            padding: 32px 15px;
+            border-top: 0;
+        }
+
+        .del-test .modal-header {
+            border-bottom: 0;
+            height: 50px;
+        }
+
+        .exam-del .modal-header,
+        .exam-not-del .modal-header {
+            height: 70px;
+            border: none;
+            font-size: 20px;
+            color: #3A3E51;
+            padding: 50px 0 0 0;
+        }
+
+        .exam-del .bootstrap-dialog-title,
+        .exam-not-del .bootstrap-dialog-title {
+            line-height: 1;
+        }
+
+        .exam-del .modal-body,
+        .exam-not-del .modal-body {
+            margin-top: 18px;
+        }
+
+        .exam-del .modal-body p,
+        .exam-not-del .modal-body p {
+            padding: 0px !important;
+            margin: 0;
+        }
+
+        .exam-not-del .exam-del-btn {
+            width: 100px;
+            height: 34px;
+            background: #F2F2F2;
+            border-radius: 4px;
+            border-color: #F2F2F2;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .exam-del .modal-footer,
+        .exam-not-del .modal-footer {
+            height: 98px;
+            border: none;
+            padding: 32px 15px;
+        }
+
+        /*表格滑动-滚动条被分页器遮挡住了，需要调整让滚动条出现*/
+        #grid-data {
+            padding-bottom: unset !important; /*去掉60px的底部填充*/
+        }
+
+        #grid-data-footer {
+            bottom: -60px !important; /*分页器也随着下移60px的底部距离*/
+        }
+
+        .select-label { /*设置不换行后，勾选框的边距消失，需要再设置*/
+            margin: 0 14px !important;
+        }
+    </style>
+
+    <style type="text/css">  .JColResizer {
+        table-layout: fixed;
+    }
+
+    .JColResizer > tbody > tr > td, .JColResizer > tbody > tr > th {
+        overflow: hidden;
+    }
+
+    .JCLRgrips {
+        height: 0px;
+        position: relative;
+    }
+
+    .JCLRgrip {
+        margin-left: -5px;
+        position: absolute;
+        z-index: 5;
+    }
+
+    .JCLRgrip .JColResizer {
+        position: absolute;
+        background-color: red;
+        filter: alpha(opacity=1);
+        opacity: 0;
+        width: 10px;
+        height: 100%;
+        cursor: col-resize;
+        top: 0px
+    }
+
+    .JCLRLastGrip {
+        position: absolute;
+        width: 1px;
+    }
+
+    .JCLRgripDrag {
+        border-left: 1px dotted black;
+    }
+
+    .JCLRFlex {
+        width: auto !important;
+    }
+
+    .JCLRgrip.JCLRdisabledGrip .JColResizer {
+        cursor: default;
+        display: none;
+    }</style>
+</head>
+<body>
+<div class="viewFrameWork sidebar-full" id="viewFrameWork">
+
+    <div class="viewFrameWork-statusbar">
+
+        <a href="/index" class="status-left company-logo" title="logo"
+           id="companyLogo">
+            <!--对有没有logo进行判断-->
+            <img class="icon-logo logo-ksx" src="../../img/logo.png"></a>
+
+
+        <div class="status-middle toolbar">
+            <div class="body-toolbar clearfix">
+                <div class="body-toolbar-left pull-left toolbar-left-operation">
+                    <button type="button" class="btn btn-primary createPaper">
+                        <i class="icon-a_circle_plus btn-icon-left"></i>
+                        创建试卷
+                    </button>
+
+                    <button type="button" class="btn btn-default" id="batchDel">
+                        <i class="icons8-trash-can btn-icon-left"></i>
+                        删除
+                    </button>
+                </div>
+                <div class="body-toolbar-right pull-right toolbar-right-operation">
+                    <div class="search-section">
+                        <div class="search-section-normal" id="normalSearch">
+                            <i class="icon-p_top_search search-section-icon" id="searchIcon"></i>
+                            <input class="search-section-area placeholder" name="paper_name" type="text"
+                                   placeholder="请输入试卷名称">
+                        </div>
+                        <div class="search-section-adv" id="advSearch">
+                    <span class="dropdown-toggle search-section-adv-title" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="true">
+                        高级搜索
+                        <i class="icons8-expand-arrow"></i>
+                    </span>
+                            <div class="dropdown-menu search-dropdown-menu search-section-adv-panel">
+                                <form name="form" method="get" id="subForm">
+                                    <ul class="search-menu">
+                                        <li>
+                                            <span class="search-menu-title">试卷分类</span>
+                                            <button class="btn btn-default search-menu-content" id="selTypeLinkMulti">
+                                                选择分类
+                                            </button>
+                                            <input type="hidden" name="paper_style">
+                                        </li>
+
+                                    </ul>
+                                </form>
+                                <div class="dropdown-footer">
+                                    <button type="button" class="btn btn-primary" id="searchBtn">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-right">
+            <div class="status-item item-notification" id="stateMessage">
+                <i class="icon item-icon icon-p_top_message"></i>
+                <span class="message-count hidden"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="viewFrameWork-main">
+
+        <div class="viewFrameWork-sidebar">
+            <div class="sidebar-inner">
+                <div class="sidebar-fold icon-unfold" id="sidebar-fold" data-toggle="tooltip" data-placement="right"
+                     data-container="body" title="" data-original-title="收起导航">
+                    <i class="icons8 icons8-icon"></i>
+                </div>
+
+                <div class="sidebar-nav">
+                    <ul class="sidebar-trans" id="ksxAdminSidebar">
+                        <li class="nav-item nav-item-index" id="navItemIndex">
+                            <a href="/index" data-toggle="tooltip"
+                               data-placement="right" data-container="body" title="" data-original-title="首页">
+                                <div class="nav-icon">
+                                    <i class="icon icon-a_nav_home icon-index"></i>
+                                </div>
+                                <span class="nav-title">首页</span>
+                            </a>
+                        </li>
+                        <li class="nav-item has-sub-menu open" id="navItemExam"><a
+                                href="/html/exam/paper_mgr_new#" class="menu-title"
+                                data-toggle="tooltip" data-placement="right" data-container="body" title="考试管理">
+                            <div class="nav-icon"><i class="icon icon-a_nav_exam"></i></div>
+                            <span class="nav-title">考试管理</span></a>
+                            <ul class="sub-menu animate" style="height: 157px;">
+                                <li class="nav-item sub-nav-item" id="subNavItemExamMgr"><a
+                                        href="/html/exam/exam_mgr_new"><span class="nav-title">考试信息管理</span></a>
+                                </li>
+                                <li class="nav-item sub-nav-item" id="subNavItemQuestionMgr"><a
+                                        href="/html/exam/test_questions"><span
+                                        class="nav-title">试题库</span></a></li>
+                                <li class="nav-item sub-nav-item nav-item-active" id="subNavItemPaperMgr"><a
+                                        href="/html/exam/paper_mgr_new"><span class="nav-title">试卷库</span></a>
+                                </li>
+                                <li class="nav-item sub-nav-item" id="subNavItemResultMgr"><a
+                                        href="/html/exam/mgr_new"><span
+                                        class="nav-title">成绩查询</span></a></li>
+                                <!-- <li class="nav-item sub-nav-item" id="subNavItemResultAnalysis"><a
+                                        href="/html/exam/exam_analysis"><span
+                                        class="nav-title">分析考试</span></a></li>
+                                <li class="nav-item sub-nav-item" id="subNavItempersonAnalysis"><a
+                                        href="/html/exam/student_analysis"><span
+                                        class="nav-title">分析考生</span></a></li> -->
+                            </ul>
+                        </li>
+                        <li class="nav-item has-sub-menu" id="navItemUser"><a
+                                href="/html/exam/paper_mgr_new#" class="menu-title"
+                                data-toggle="tooltip" data-placement="right" data-container="body" title="人员管理">
+                            <div class="nav-icon"><i class="icon icon-a_nav_personnel"></i></div>
+                            <span class="nav-title">人员管理</span></a>
+                            <ul class="sub-menu animate">
+                                <li class="nav-item sub-nav-item" id="subNavItemUserMgr"><a
+                                        href="/html/user/user_list"><span
+                                        class="nav-title">考生信息</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-sub-menu" id="navItemCourse"><a
+                                href="/html/exam/paper_mgr_new#" class="menu-title"
+                                data-toggle="tooltip" data-placement="right" data-container="body" title="学习">
+                            <div class="nav-icon"><i class="icon icon-a_nav_study"></i></div>
+                            <span class="nav-title">学习</span></a>
+                            <ul class="sub-menu animate">
+                                <li class="nav-item sub-nav-item" id="subNavItemFileMgr"><a
+                                        href="/html/study/manager"><span class="nav-title">知识库</span></a>
+                                </li>
+                                <li class="nav-item sub-nav-item" id="subNavItemCourseMgr"><a
+                                        href="/html/study/course_mgr"><span class="nav-title">课程管理</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                       
+                        <li class="nav-item has-sub-menu" id="navItemSystem"><a
+                                href="/html/exam/paper_mgr_new#" class="menu-title"
+                                data-toggle="tooltip" data-placement="right" data-container="body" title="系统管理">
+                            <div class="nav-icon"><i class="icon icon-a_nav_system"></i></div>
+                            <span class="nav-title">系统管理</span></a>
+                            <ul class="sub-menu animate">
+                                <li class="nav-item sub-nav-item" id="subNavItemSubAdminMgr"><a
+                                        href="#"><span
+                                        class="nav-title">子管理员设置</span></a>
+                                </li>
+                                <li class="nav-item sub-nav-item" id="subNavItemOpRecord"><a
+                                        href="/html/system/admin_op_record"><span
+                                        class="nav-title">管理员操作记录</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-bottom sidebar-btn">
+                <ul class="sidebar-trans">
+                    <li class="nav-item">
+                        <a class="sidebar-bottom-wrap" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <div class="nav-icon">
+                                <i class="icon icon-a_nav_help"></i>
+                            </div>
+                            <span class="nav-title">帮助
+                        </span>
+                        </a>
+                        <div class="dropdown-menu company-info-panel person-servers-panel">
+                            <div class="btn-help">
+                                <i class="icon icon-a_help_document"></i>
+                                <p><a href="#">帮助文档</a></p>
+                            </div>
+                            <div class="btn-service">
+                                <i class="icon icon-a_help_service"></i>
+                                <span>人工客服</span>
+                                <p>
+                                可或拔打电话<span>18800418032</span>
+                            </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-item-user">
+                        <a class="sidebar-bottom-wrap" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <div class="nav-icon">
+                                <i class="icon icon-a_nav_my"></i>
+                            </div>
+                            <span class="nav-title">东北大学软件园</span>
+                        </a>
+                        <div class="dropdown-menu company-info-panel user-info-panel">
+
+                            <div class="user-info">
+                                <div class="info-img">
+                                    <img src="../../img/default-pic.png" class="user_img" alt="">
+                                </div>
+                                <div class="info-detail clearfix">
+                                    <div class="user" id="user">
+                                        <span class="user-surname">东北大学软件园</span>
+                                        <i data-toggle="tooltip" data-placement="top" data-container="body" title=""
+                                           data-original-title="编辑信息">
+                                        </i>
+                                    </div>
+                                    <div class="company">
+                                        东北大学软件园
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="operate-group">
+                                <a class="operate-item exam-entrance" href="/student">
+                                    <i class="operate-icon icon-a_personal_switch"></i>
+                                    切换至考生端
+                                    <i class="operate-right-icon icon-a_enter"></i>
+                                </a>
+                                <a class="operate-item exam-entrance"
+                                   href="https://admin..com/admin/admin_information">
+                                    <i class="operate-icon edit-info icon-a_personal_edit" data-toggle="tooltip"
+                                       data-placement="top" data-container="body" title="" data-original-title="编辑信息">
+
+                                        <i class="unread-notice"></i>
+
+                                    </i>
+                                    修改个人信息
+                                    <i class="operate-right-icon icon-a_enter"></i>
+                                </a>
+                                <a class="operate-item btn-exit" id="logoutBtn">
+                                    <i class="operate-icon icon-a_personal_exit"></i>
+                                    退出
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="viewFrameWork-body">
+            <!-- loading -->
+            <div class="spinner-wrapper hidden" id="spinnerLoading">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+
+            <div class="body-wrapper">
+                <div class="body-content">
+                    <div class="table-responsive">
+                        <div class="JCLRgrips" style="width: 1685px;">
+                            <div class="JCLRgrip" style="left: 60px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 200px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 404px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 575px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 805px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 916px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 1141px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip" style="left: 1393px; height: 193px;">
+                                <div class="JColResizer"></div>
+                            </div>
+                            <div class="JCLRgrip JCLRLastGrip" style="left: 1686px; height: 193px;"></div>
+                        </div>
+                        <table id="my-data" class="table text-nowrap bootgrid-table JColResizer" aria-busy="false">
+                            <thead>
+                            <tr>
+                                <th class="select-cell" id="select_all" style="width: 3.5%;">
+                                    <label class="select-label">
+                                        <input name="select" type="checkbox" class="select-box" value="all">
+                                        <span class="select-box">
+                                            <i class="icons8-checked-checkbox"></i>
+                                        </span>
+                                    </label>
+                                </th>
+                                <th data-column-id="paperName" class="text-left" style="width: 8.3%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">名称</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="paperStyleName" class="text-left" style="width: 12.1%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text"></span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="paperType" class="text-left" style="width: 10.1%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">科目</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="perTimeRestrict" class="text-left" style="width: 13.6%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text"></span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="totalScore" class="text-left" style="width: 6.6%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">总分</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="createUserName" class="text-left" style="width: 13.4%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor "><span
+                                        class="text">创建人</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="createTime" class="text-left" style="width: 15%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">创建时间</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="sender" class="text-left" style="width: 17.4%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">操作</span><span class="icon glyphicon icons8-settings"></span></a>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="grid-data-footer" class="bootgrid-footer container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 infoBar">
+                                <div class="infos">共3项记录</div>
+                                <div class="actions btn-group">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                data-toggle="dropdown"><span
+                                                class="dropdown-text page-count-span">每页10项</span> <span
+                                                class="caret"></span></button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li class="active" aria-selected="true"><a
+                                                    href="./paper_mgr_new.html#10"
+                                                    class="dropdown-item dropdown-item-button">10</a></li>
+                                            <li aria-selected="false"><a
+                                                    href="./paper_mgr_new.html#20"
+                                                    class="dropdown-item dropdown-item-button">20</a></li>
+                                            <li aria-selected="false"><a
+                                                    href="./paper_mgr_new.html#50"
+                                                    class="dropdown-item dropdown-item-button">50</a></li>
+                                            <li aria-selected="false"><a
+                                                    href="./paper_mgr_new.html#100"
+                                                    class="dropdown-item dropdown-item-button">100</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                data-toggle="dropdown"><span class="dropdown-text"><span
+                                                class="icon glyphicon icons8-settings"></span>自定义设置</span> <span
+                                                class="caret"></span></button>
+                                        <ul class="dropdown-menu pull-right custom-settings" role="menu">
+                                            <li><label class="dropdown-item"><input name="paperName" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 名称</label></li>
+                                            <li><label class="dropdown-item"><input name="paperStyleName"
+                                                                                    type="checkbox" value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 试卷分类</label></li>
+                                            <li><label class="dropdown-item"><input name="status" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox">
+                                                状态</label></li>
+                                            <li><label class="dropdown-item"><input name="paperType" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 组卷方式</label></li>
+                                            <li><label class="dropdown-item"><input name="totalScore" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 总分</label></li>
+                                            <li><label class="dropdown-item"><input name="createUserName"
+                                                                                    type="checkbox" value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 创建人</label></li>
+                                            <li><label class="dropdown-item"><input name="createTime" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 创建时间</label></li>
+                                            <li><label class="dropdown-item"><input name="modifier" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"> 修改人</label>
+                                            </li>
+                                            <li><label class="dropdown-item"><input name="modifiedTime" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"> 修改时间</label>
+                                            </li>
+                                            <li><label class="dropdown-item"><input name="sender" type="checkbox"
+                                                                                    value="1"
+                                                                                    class="dropdown-item-checkbox"
+                                                                                    checked="checked"> 操作</label></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="pagination">
+                                    <li class="first disabled" aria-disabled="true"><a
+                                            href="./paper_mgr_new.html#first"
+                                            class="button"><i class="icons8-icon"></i></a></li>
+                                    <li class="prev disabled" aria-disabled="true"><a
+                                            href="./paper_mgr_new.html#prev" class="button"><i
+                                            class="icons8-back-filled"></i></a></li>
+                                    <li class="page-1 active" aria-disabled="false" aria-selected="true"><a
+                                            href="./paper_mgr_new.html#1"
+                                            class="button">1</a></li>
+                                    <li class="next disabled" aria-disabled="true"><a
+                                            href="./paper_mgr_new.html#next" class="button"><i
+                                            class="icons8-forward-filled"></i></a></li>
+                                    <li class="last disabled" aria-disabled="true"><a
+                                            href="./paper_mgr_new.html#last" class="button"><i
+                                            class="icons8-icon-3"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--超管后台新版本通知-->
+<div class="modal fade" id="changeLogModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-600 change-log-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title"></div>
+                <div class="version"></div>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-row">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="getChangeBtn">知道了</button>
+                    <a href="https://www..com/change/log/" target="_blank" class="more">了解更多</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade ksx-modal" id="createPaperModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-440" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">选择组卷方式</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="createPaperForm">
+                    <div class="form-row">
+                        <div class="row-label">试卷名称：</div>
+                        <div class="row-content">
+                            <input type="text" name="paper_name" class="form-control input-sm" id="paperName"
+                                   placeholder="请输入试卷名称">
+                            <span class="tip">*</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="row-label">选择科目：</div>
+                        <div class="row-content">
+                            <div id="select_subject">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="row-label">组卷方式：</div>
+                        <div class="row-content paper-type-group">
+                            <button type="button" data-value="1" class="btn btn-default btn-sm create_method">选题组卷
+                            </button>
+                            <button type="button" data-value="3"
+                                    class="btn btn-default btn-sm create_method not-selected">随机组卷
+                            </button>
+                            <input type="hidden" class="" name="paper_type" value="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="row-label"></div>
+                        <div class="row-content">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn btn-gray" data-dismiss="modal">取消</button>
+                <button class="btn btn-primary" id="confirmCreatePaper">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-small" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title model-exam-classify" id="myModalLabel">选择试卷分类</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="400px" name="selTypeModal" id="selTypeModal"
+                        src="#"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.bootgrid-ksx.js"></script>
+<script type="text/javascript" src="../../js/bootstrap-dialog.min.js"></script>
+<script type="text/javascript" src="../../js/colResizable-1.6.min.js"></script>
+<script type="text/javascript" src="../../js/admin-base.js"></script>
+<script>
+    // these are global constant
+    var LOCAL_URL = window.location.href;
+    var USER_ROLE = 'admin';
+    var rights = '8';
+    var surname = "东北大学软件园";
+    var adjust_t, adjust_l;//对引导层位置进行调整的两个变量
+    var tool_html = '';//消息内容
+    var tool_count = 0;//消息数目
+    var user_id = "7387836";
+    var getAdminUrlPrefix = 'https://admin..com';
+    var getUrlPrefix = '';
+    var getAnalysisUrlPrefix = 'https://new..com';
+    var getStaticUrlPrefix = 'https://v..com';
+
+    //当前request返回页面对应导航id
+
+    var activeNavItem = 'subNavItemPaperMgr';
+    $(function () {
+
+
+        // 更新消息已读
+        $("#getChangeBtn").click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '/admin/read_public',
+                type: 'get',
+                cache: false,
+                dataType: 'json',
+                success: function (msg) {
+                    $("#changeLogModal").modal('hide');
+                }
+            })
+        });
+
+    });
+
+
+    $(document).ready(function () {
+
+        // $("#user").click(function(){
+        //     window.location.href="/admin/admin_information";
+        //     $(".unread-notice").hide();
+        //
+        // });
+
+        //    自管理员点击添加考生，添加试题，创建考试时的权限判断
+        $("#staff,#test,#exam").on("click", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var type = $(this).prop("id");
+            var url = $(this).prop("href");
+            $.ajax({
+                type: "POST",
+                cache: false,
+                headers: {"cache-control": "no-cache"},
+                dataType: "json",
+                url: "/admin/checkout_sub_admin_right",
+                data: "type=" + type,
+                success: function (msg) {
+                    if (msg.success) {
+                        window.location.href = url;
+                    } else {
+                        alert(msg.desc);
+                    }
+                }
+
+            })
+        });
+    });
+</script>
+<script type="text/javascript" src="../../js/moment.js"></script>
+<script type="text/javascript" src="../../js/pikaday.js"></script>
+<script type="text/javascript" src="../../js/pikaday.jquery.js"></script>
+<script type="text/javascript" src="../../js/admin_paperManager.js"></script>
+<script>
+    $(function () {
+        $.getJSON("/exam/get_subjects", function (result) {
+            $.each(result.subjects, function (index, e) {
+                $subject = $("<label style='margin-left: 5px'>" + e + " <input name='subject' type='radio' value=\'" + e + "'></label>");
+                $("#select_subject").append($subject);
+            })
+        });
+        $.getJSON("/exam/get_papers", function (result) {
+            $.each(result, function (index, e) {
+                var paper = '<tr data-row-id="292524" class="select-item">';
+                paper += '<td class="select-cell" style="">';
+                paper += '<label class="select-label">';
+                paper += '<input name="select" type="checkbox" class="select-box" value="' + e.paperId + '">';
+                paper += '<span class="select-box"><i class="icons8-checked-checkbox"></i></span></label></td>';
+                paper += '<td class="text-left" style="">' + e.paperName + '</td>';
+                paper += '<td class="text-left" style=""></td>';
+                paper += '<td class="text-left" style="">' + e.paperType + '</td>';
+                paper += '<td class="text-left" style=""></td>';
+                paper += '<td class="text-left" style="">' + e.paperScore + '</td>';
+                paper += '<td class="text-left" style="">' + e.createrId + '</td>';
+                paper += '<td class="text-left" style="">' + e.createDate + '</td>';
+                paper += '<td class="text-left" style="">';
+                paper += '<a href="./paper_mgr_new.html" data-growing-title="updatePaper" class="icons8-edit updatePaper" paperid="292524" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="编辑"></a>';
+                paper += '<a href="./paper_mgr_new.html" data-growing-title="removePaper" class="icons8-trash-can removePaper" paperisusing="false" examusing="false" paperid="292524" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="删除"></a>';
+                paper += '<a href="./paper_mgr_new.html" data-growing-title="copyPaper" class="icon-a_operate_copy copyPaper" data-trigger="hover" paperid="292524" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="复制试卷"></a>';
+                paper += '<a href="./paper_mgr_new.html" paperid="292524" data-growing-title="copyPaper" target="_blank" class="icon-a_operate_create_test create_exam" data-trigger="hover" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="创建考试"></a>';
+                paper += '</td></tr>';
+                $('tbody').append($(paper));
+            });
+            $('input.select-box, td.text-left').click(function (e) {
+
+                if ($(e.target).parents("tr").hasClass("active")) {
+                    $(e.target).parents("tr")
+                        .removeClass("active");
+                } else {
+                    $(e.target).parents("tr")
+                        .addClass("active");
+                }
+            });
+            $("#select_all").change(function () {
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                    $('.select-item').removeClass("active");
+                } else {
+                    $(this).addClass("active");
+                    $('.select-item').addClass("active");
+                }
+            });
+        });
+        $('#confirmCreatePaper').click(function () {
+            let url = "/html/exam/paper_manual_add";
+            url += "?paperName=" + $('#paperName').val();
+            var substr = String($('input:radio:checked').val());
+            if (substr == 'undefined') {
+                alert("请选择科目!");
+                return;
+            }
+            url += "&subject=" + substr;
+            url += "&method=" + $('.create_method').not('.not-selected').text().trim();
+            window.location.href = url;
+        });
+    });
+</script>
+</body>
+</html>

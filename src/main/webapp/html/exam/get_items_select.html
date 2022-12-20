@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>考试云平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/img/logo.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css"
+          href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/ksx-base.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="/css/jquery.bootgrid.css">
+    <link rel="stylesheet" type="text/css"
+          href="/css/pikaday.css">
+    <link rel="stylesheet" type="text/css"
+          href="/css/styles.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/css/modal_content_style.css">
+    <style>
+        /*.modal_btn_default {*/
+        /*line-height: 18px;*/
+        /*}*/
+        /*.tab-content .tab-wrap1 .com-drop{*/
+        /*min-height: 600px;*/
+        /*}*/
+        .infoBar .actions .dropdown:last-child {
+            display: none;
+        }
+
+        .topContent {
+            text-align: left;
+        }
+
+        .topContent .form-group {
+            text-align: center;
+        }
+
+        #selTypeLink, #selLabelLink {
+            display: inline-block;
+            width: 100px;
+            background: #F5F5F5;
+            border: 1px solid #F5F5F5;
+            border-radius: 4px;
+            color: #666666;
+            padding: 3px 0;
+        }
+    </style>
+    <style>
+        #grid-data-footer {
+            background: #fff;
+        }
+
+        .fade .in {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <form action="/admin/select_type" name="form" method="get" id="subForm">
+        <div role="tabpanel" class="tab-area tab-col2">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active">
+                    <div class="rqm-table2 com-drop">
+                        <table class="table bootgrid-table" aria-busy="false">
+                            <thead>
+                            <tr>
+                                <th class="select-cell"><label class="select-label">
+                                    <input id="select_all" name="select" type="checkbox" class="select-box" value="all">
+                                    <span class="select-box"><i class="icons8-checked-checkbox"></i></span></label>
+                                </th>
+                                <th data-column-id="type" class="text-left" style="width:8%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor "><span
+                                        class="text">题型</span><span
+                                        class="icon glyphicon "></span></a></th>
+                                <th data-column-id="classification" class="text-left" style="width:10%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">科目</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="content" class="text-left" style=""><a
+                                        href="javascript:void(0);" class="column-header-anchor "><span
+                                        class="text">试题内容</span><span
+                                        class="icon glyphicon "></span></a></th>
+                                <th data-column-id="difficult" class="text-left" style="width:8%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">难度</span><span class="icon glyphicon "></span></a></th>
+                                <th data-column-id="createTime" class="text-left" style="width:20%;"><a
+                                        href="javascript:void(0);" class="column-header-anchor sortable"><span
+                                        class="text">创建时间</span><span class="icon glyphicon "></span></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div id="grid-data-foot" class="bootgrid-footer container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6 infoBar">
+                                    <div class="infos">共3项记录</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="pagination">
+                                        <li class="first disabled" aria-disabled="true"><a href="#first"
+                                                                                           class="button"><i
+                                                class="icons8-icon"></i></a></li>
+                                        <li class="prev disabled" aria-disabled="true"><a href="#prev"
+                                                                                          class="button"><i
+                                                class="icons8-back-filled"></i></a></li>
+                                        <li class="page-1 active" aria-disabled="false" aria-selected="true"><a
+                                                href="#1" class="button">1</a></li>
+                                        <li class="next disabled" aria-disabled="true"><a href="#next"
+                                                                                          class="button"><i
+                                                class="icons8-forward-filled"></i></a></li>
+                                        <li class="last disabled" aria-disabled="true"><a href="#last"
+                                                                                          class="button"><i
+                                                class="icons8-icon-3"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttonP">
+            <a class="btn modal_btn_default btn_off" href="#" id="closeBtn">关闭</a>
+            <a class="btn modal_btn_default btn_on" href="#" id="saveBtn">保存</a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width:500px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">选择考试分类</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="518px" style="border:0px;margin:0 auto;" name="selTypeModal"
+                        id="selTypeModal"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="labelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-small" role="document" style="width:500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">试题标签</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="518px" name="selLabelModal" id="selLabelModal">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript"
+        src="/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="/js/jquery.bootgrid-ksx.js"></script>
+<script type="text/javascript" src="/js/moment.js"></script>
+<script type="text/javascript"
+        src="/js/pikaday.js"></script>
+<script type="text/javascript"
+        src="/js/pikaday.jquery.js"></script>
+<script type="text/javascript">
+    var labelOpen = '0';
+    $(document).ready(function () {
+
+        var datastr = "subject=" + getParam('subject') + "&itemType=" + getParam('type');
+        $.getJSON("/exam/get_certain_items", datastr, function (result) {
+            //console.log(e);
+            //console.log(result);
+            $.each(result, function (index, e) {
+                var item = '<tr id="id-' + e.itemId + '">'
+                    + '<td class="select-cell" style=""><label class="select-label"><input '
+                    + 'name="select" type="checkbox" class="select-box"><span class="select-box"><i'
+                    + ' class="icons8-checked-checkbox"></i></span></label></td>'
+                    + '<td class="text-left" style="width:8%;">' + e.itemType + '</td>'
+                    + ' <td class="text-left" style="width:10%;">' + e.itemCoursetype + '</td>'
+                    + ' <td class="text-left" style="">' + e.itemQuestion + ' </td>';
+                var difficult = '';
+                if (e.itemIndex < 2) {
+                    difficult = "简单";
+                } else if (e.itemIndex < 4) {
+                    difficult = "普通";
+                } else {
+                    difficult = "困难";
+                }
+                item += ' <td class="text-left" style="width:8%;">' + difficult + '</td>'
+                    + ' <td class="text-left" style="width:20%;">' + e.itemDate + '</td></tr>';
+                $('tbody').append($(item));
+            });
+            $('input.select-box, td.text-left').click(function (e) {
+                if ($(e.target).parents("tr").hasClass("active")) {
+                    $(e.target).parents("tr")
+                        .removeClass("active");
+                } else {
+                    $(e.target).parents("tr")
+                        .addClass("active");
+                }
+            });
+
+            $('#select_all').click(function () {
+                if ($(this).parents().parents().parents("tr").hasClass('active')) {
+                    $('.select-box').not('#select_all').each(function (index, e) {
+                        $(e).parents().parents().parents("tr").addClass('active');
+                    });
+                } else {
+                    $('.select-box').not('#select_all').each(function (index, e) {
+                        $(e).parents().parents().parents("tr").removeClass('active');
+                    });
+                }
+            });
+
+
+        });
+
+
+        // 选择标签
+        $("body").on("click", "#selLabelLink", function (e) {
+            showSelLabel(this);
+        });
+
+        //重置表单
+        $("#resetBtn").click(function (e) {
+            $("form[name=form]")[0].reset();
+            $("#selTypeLink").text("").append("<span>请选择</span>");
+            $("#selLabelLink").text("请选择");
+            $("input[name=classification]").val("");
+            if (labelOpen == 1) {
+                $("input[name=label]").val("");
+            }
+        });
+
+    });
+    //点击搜索
+    $("body").on("click", "#searchBtn", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $("#grid-data").bootgrid("reload");
+    });
+    $("body").on("click", ".searchIcon", function (e) {
+        $("#grid-data").bootgrid("reload");
+    });
+
+    //创建时间长度截取
+    $(".questionCreateTime").each(function (index, element) {
+        var text = $(this).text();
+        var last = text.lastIndexOf(".");
+        var t = text.substr(0, last);
+        $(this).text(t);
+    });
+
+
+    //接受考试选择
+    $("#saveBtn").click(function (e) {
+        var num = 0;
+        var ids = "";
+        $("tr").each(function (index, element) {
+            if ($(element).hasClass("active")) {
+                var id = $(element).attr('id');
+                if (String(id) != 'undefined') {
+                    id = String(id).substring(3);
+                    ids += id + ",";
+                    num++;
+                }
+            }
+        });
+        //console.log(ids);
+        if (ids == "") {
+            alert("请选择试题！");
+
+        } else {
+            parent.selQuestion(ids, num, 0);
+            parent.hideSelQuestions();
+        }
+    });
+    //关闭对话框
+    $("#closeBtn").click(function (e) {
+        parent.hideSelQuestions();
+    });
+
+</script>
+<script>
+    function getParam(paramName) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == paramName) {
+                return pair[1];
+            }
+        }
+        return (false);
+    }
+</script>
+<div class="pika-single is-hidden is-bound" style=""></div>
+<div class="pika-single is-hidden is-bound" style=""></div>
+</body>
+</html>
