@@ -17,7 +17,7 @@
 create database exam;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+use exam;
 -- ----------------------------
 -- Table structure for admin_table
 -- ----------------------------
