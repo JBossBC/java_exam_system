@@ -4,6 +4,13 @@
 docker --version
 if [ ! $? ]
 then
+  echo "attempt the download the docker,support the yum package manager util"
+  yum install docker-ce
+  if [ $? != 0 ]
+  then
+    echo "docker download failed,please download the docker by yourself"
+    exit 1
+  fi
   exit
 fi
 #inspect you have the exam.sql file
