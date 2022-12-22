@@ -166,7 +166,7 @@ CREATE TABLE `item_table`  (
 -- Records of item_table
 -- ----------------------------
 INSERT INTO `item_table` VALUES (11, 'admin', '2019-08-02 00:25', '计算机', '单选题', 1, '离散数学难吗？', '不简单###难###好难###很难', '难', '', 5, '真难');
-INSERT INTO `item_table` VALUES (12, 'admin', '2019-08-02 00:51', '语文', '单选题', 3, '不在金圣叹所称赞的“六才子书”之列的是:______', '《庄子》###《红楼梦》###《水浒传》###《史记》', '《红楼梦》', '', 5, '没有解析，自己百度');
+INSERT INTO `item_table` VALUES (12, 'admin', '2019-08-02 00:51', '计算机', '单选题', 3, '不在金圣叹所称赞的“六才子书”之列的是:______', '《庄子》###《红楼梦》###《水浒传》###《史记》', '《红楼梦》', '', 5, '没有解析，自己百度');
 INSERT INTO `item_table` VALUES (13, 'admin', '2019-08-02 00:51', '计算机', '单选题', 1, '1+1=?', '1###2###3###4', '2', '', 5, '233');
 INSERT INTO `item_table` VALUES (14, 'admin', '2019-08-02 00:52', '语文', '单选题', 5, '“东坡妇”的典故出自苏东坡的_________', '《前赤壁赋》###《水调歌头》###《赤壁怀古》###《后赤壁赋》', '《后赤壁赋》', '', 5, '没有解析，自己百度');
 INSERT INTO `item_table` VALUES (15, 'admin', '2019-08-02 00:53', '英语', '单选题', 1, 'How are you?', 'ok###fine###good###nine', 'fine', '', 5, 'ohhh');
@@ -306,7 +306,7 @@ CREATE TABLE `student_table`  (
 -- ----------------------------
 -- Records of student_table
 -- ----------------------------
-INSERT INTO `student_table` VALUES ('student', 'student', '202cb962ac59075b964b07152d234b70', '计算机学院', '软件工程', '哈尔滨工业大学');
+INSERT INTO `student_table` VALUES ('student', 'student', '202cb962ac59075b964b07152d234b70', '区块链产业学院', '区块链工程', '成都信息工程大学');
 
 -- ----------------------------
 -- Table structure for teacher_table
@@ -325,6 +325,6 @@ CREATE TABLE `teacher_table`  (
 -- ----------------------------
 -- Records of teacher_table
 -- ----------------------------
-INSERT INTO `teacher_table` VALUES ('teacher', 'teacher', '202cb962ac59075b964b07152d234b70', '人文学院', '社会学', '哈尔滨工业大学');
+INSERT INTO `teacher_table` VALUES ('teacher', 'teacher', '202cb962ac59075b964b07152d234b70', '区块链产业学院', '区块链工程', '成都信息工程大学');
 
 SET FOREIGN_KEY_CHECKS = 1;
