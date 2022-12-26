@@ -96,7 +96,6 @@ function userLogin() {
             password = $("#loginForm [name=password]").val();
 
             dataForm += "&password=" + md5(password) + "&nextUrl=" + nextUrl;
-            $("#loginBtn").addClass("disabled");
             $.ajax({
                 type: "POST",
                 cache: "false",
@@ -118,7 +117,6 @@ function userLogin() {
                         window.location.href = "/student";
 
                     } else {
-                        $("#loginBtn").removeClass("disabled");
                         $("#errormsg").text(msg);
                     }
                 }
