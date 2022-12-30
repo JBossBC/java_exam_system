@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## author:蒋析洋
+
 ## auto build and create the mysql database accouding to the mysql.dockerfile
 docker --version
 if [ ! $? ]
@@ -13,9 +15,9 @@ then
   fi
   exit
 fi
-#inspect you have the exam.sql file
+#inspect you have the schema.sql file
 
-if [ ! -e exam.sql ]
+if [ ! -e schema.sql ]
 then
   echo "you cant have the exam.sql file"
   exit

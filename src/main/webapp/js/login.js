@@ -146,7 +146,6 @@ function userLogin() {
                         if (msg === "ok") {
                             window.location.href = "/index";
                         } else {
-                            $("#loginBtn").removeClass("disabled");
                             $("#errormsg").text(msg);
                         }
                     },
